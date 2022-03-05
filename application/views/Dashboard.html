@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Admin Panel Design - Dashboard</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+    
+    
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+   
+   
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <a href="Dashboard.html" class="brand-logo">
+                <img class="logo-abbr" src="./images/LogoBrand.svg" alt="">
+                <img class="logo-compact" src="./images/logotxt.png" alt="">
+                <img class="brand-title" src="./images/logotxt.png" alt="">
+            </a>
+
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="linetoggle">
+                        
+                        <img src="images/menu-toggle.png">
+                    </span>
+
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                         <div class="header-left">
+                            <div class="search_bar dropdown">
+                                <span class="search_icon c-pointer" data-toggle="dropdown">
+                                    <i class="mdi mdi-magnify"></i>
+                                </span>
+                                <div class="dropdown-menu p-0 m-0">
+                                    <form>
+                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="navbar-nav header-right">
+
+                            
+                            <li class="nav-item dropdown header-profile">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                    2020-21 <i class="mdi mdi-chevron-down"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="#" class="dropdown-item">
+                                        <i class="icon-user"></i>
+                                        <span class="ml-2">Profile </span>
+                                    </a>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="icon-envelope-open"></i>
+                                        <span class="ml-2">Inbox </span>
+                                    </a>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="icon-key"></i>
+                                        <span class="ml-2">Logout </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown header-profile">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                    <img class="brand-title" src="./images/avatar/icondot.svg" alt="">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="#" class="dropdown-item">
+                                        <i class="icon-user"></i>
+                                        <span class="ml-2">Profile </span>
+                                    </a>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="icon-envelope-open"></i>
+                                        <span class="ml-2">Inbox </span>
+                                    </a>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="icon-key"></i>
+                                        <span class="ml-2">Logout </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown notification_dropdown">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                    <img class="brand-title" src="./images/avatar/notification.svg" alt="">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <ul class="list-unstyled">
+                                        <li class="media dropdown-item">
+                                            <span class="success"><i class="ti-user"></i></span>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <span class="notify-time">3:20 am</span>
+                                        </li>
+                                        <li class="media dropdown-item">
+                                            <span class="primary"><i class="ti-shopping-cart"></i></span>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
+                                                </a>
+                                            </div>
+                                            <span class="notify-time">3:20 am</span>
+                                        </li>
+                                        <li class="media dropdown-item">
+                                            <span class="danger"><i class="ti-bookmark"></i></span>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <span class="notify-time">3:20 am</span>
+                                        </li>
+                                        <li class="media dropdown-item">
+                                            <span class="primary"><i class="ti-heart"></i></span>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
+                                                </a>
+                                            </div>
+                                            <span class="notify-time">3:20 am</span>
+                                        </li>
+                                        <li class="media dropdown-item">
+                                            <span class="success"><i class="ti-image"></i></span>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <span class="notify-time">3:20 am</span>
+                                        </li>
+                                    </ul>
+                                    <a class="all-notification" href="#">See all notifications <i
+                                            class="ti-arrow-right"></i></a>
+                                </div>
+                            </li>
+                            
+
+
+
+
+                            <li class="nav-item dropdown header-profile">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                    <img class="brand-title" src="./images/avatar/avtarlady.svg" alt="">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="#" class="dropdown-item">
+                                        <i class="icon-user"></i>
+                                        <span class="ml-2">Profile </span>
+                                    </a>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="icon-envelope-open"></i>
+                                        <span class="ml-2">Inbox </span>
+                                    </a>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="icon-key"></i>
+                                        <span class="ml-2">Logout </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="quixnav">
+            <div class="quixnav-scroll">
+                <ul class="metismenu mt-3" id="menu">
+                    
+                    <li><a href="Dashboard.html"><img src="images/Home.svg"><span class="nav-text">Dashboard</span></a>
+                    </li>
+                    <li><a href="Dashboard.html"><img src="images/Document.svg"><span class="nav-text">User Details</span></a>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><img src="images/Folder.svg"><span class="nav-text">Orders</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="#">Total Orders</a></li>
+                            
+                            <li><a href="#">Complete Orders</a></li>
+                            <li><a href="#">Pending Orders</a></li>
+                            <li><a href="#">Refunded Orders</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><img src="images/Message.svg"><span class="nav-text">Mailbox</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="#">Profile</a></li>
+                            
+                            <li><a href="#">Calendar</a></li>
+                        </ul>
+                    </li>
+					
+					 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><img src="images/notification.svg"><span class="nav-text">Notification</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="#">Profile</a></li>
+                            
+                            <li><a href="#">Calendar</a></li>
+                        </ul>
+                    </li>
+                    
+
+                    <li class="nav-label">SYSTEM</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><img src="images/Setting.svg"><span class="nav-text">Settings</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="#">Profile</a></li>
+                            
+                            <li><a href="#">Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="Dashboard.html"><img src="images/admins.svg"><span class="nav-text">Admin</span></a>
+                    </li>
+                    <li><a href="Dashboard.html"><img src="images/Edit.svg"><span class="nav-text">Change Password</span></a>
+                    </li>
+                    <li><a href="Dashboard.html"><img src="images/Category.svg"><span class="nav-text">About Us</span></a>
+                    </li>
+                    
+                   
+
+                   
+                   
+
+                    <li class="blockLast">
+                        
+                       <div class="card">
+                            <div class="stat-widget-one card-body">
+                                <div class="stat-icon d-inline-block">
+                                    <img src="images/blockuser.svg">
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-digit">Nishant Bansal</div>
+                                    <div class="stat-text">Chartered Accountant</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Dashboard</h4>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-one card-body">
+                                <div class="stat-icon d-inline-block">
+                                    <img src="images/card/flat-color-icons_android-os.svg">
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-digit">1000000</div>
+                                    <div class="stat-text">Total Android Users</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-one card-body">
+                                <div class="stat-icon iconOrng d-inline-block">
+                                    <img src="images/card/icon-file.svg">
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-digit">478 520</div>
+                                    <div class="stat-text">Total Orders</div>
+                                    <small class="text-success cstmClassSucc"> Rs. 10,000/-</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-one card-body">
+                                <div class="stat-icon iconLghtBlu d-inline-block">
+                                    <img src="images/card/icon-mail.svg">
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-digit">154 872</div>
+                                    <div class="stat-text"><span class="">Pending Orders</span> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-one card-body">
+                                <div class="stat-icon iconSkblu d-inline-block">
+                                    <img src="images/card/iconoir_profile-circled.png">
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-digit">167</div>
+                                    <div class="stat-text">Messages</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-one card-body">
+                                <div class="stat-icon iconSkbluappl d-inline-block">
+                                    <img src="images/card/Vector.png">
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-digit">50000</div>
+                                    <div class="stat-text">Total IOS Users</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-one card-body">
+                                <div class="stat-icon iconOrng1 d-inline-block">
+                                    <img src="images/card/icon-file.png">
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-digit">478 520</div>
+                                    <div class="stat-text">Complete Orders</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-one card-body">
+                                <div class="stat-icon iconSkblu d-inline-block">
+                                    <img src="images/card/icon-mail.png">
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-digit">154 872</div>
+                                    <div class="stat-text">Refund Orders</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-one card-body">
+                                <div class="stat-icon d-inline-block">
+                                    <img src="images/card/icon-mail.svg">
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-digit">167</div>
+                                    <div class="stat-text">Messages</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-12">
+                        <div class="card mycardStyle">
+                           
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example" class="display text-center myTbleStyl" style="min-width: 845px">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr.No.</th>
+                                                <th>Order ID</th>
+                                                <th>Name</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                                <th>PAN</th>
+                                                <th>Type</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                             <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                             <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2201120001</td>
+                                                <td>Nishant Bansal</td>
+                                                <td>12-1-2022</td>
+                                                <td>Rs. 500/-</td>
+                                                <td>AZDPB6044R</td>
+                                                <td>Original</td>
+                                                <td><span class="pendingBtn">Pending</span></td>
+                                                <td>...</td>
+                                                
+                                            </tr>
+                                          
+                                        </tbody>
+                                        
+                                    </table>
+                                </div>
+                                 <span  class="btnDownloadexcel">
+                                    <a href="#">Download in Excel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>2022 © Overseas Apps Private Limited</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    
+    <script src="./vendor/global/global.min.js"></script>
+    <script src="./js/quixnav-init.js"></script>
+    <script src="./js/custom.min.js"></script>
+    
+
+    <script src="./vendor/moment/moment.min.js"></script>
+    
+
+
+    <script src="./js/dashboard/dashboard-2.js"></script>
+    <!-- Circle progress -->
+
+
+<!-- Required vendors -->
+   
+<!-- Datatable -->
+    <script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>
+    
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+$('#example').DataTable( {
+    destroy: true,
+    searching: false,
+    bPaginate: true,
+    bLengthChange: false,
+    bFilter: true,
+    bInfo: false
+
+});
+});
+    </script>
+
+</body>
+
+</html>

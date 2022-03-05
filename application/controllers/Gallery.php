@@ -1,0 +1,416 @@
+
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Gallery extends CI_Controller {
+
+function __construct(){
+    parent::__construct();
+    $this->admin_info      =  $this->common->__check_session();
+    $this->load->model('Gallery_model');
+    $this->load->library('form_validation');	
+    $this->load->library("pagination");
+    
+
+}
+
+public function index(){
+	// check user permission
+	
+	if(!has_admin_permission_layout('VIEW_PHOTO_GALLERY')) { return; }
+	$data['page_title'] = 'View Gallery';
+   
+ 
+  
+	if($this->input->get_post('imgchk' )) {
+		$image_chk = 1;
+	}else{
+		$image_chk = 0;
+	}
+	if($this->input->get_post('vidchk' )) {
+		$video_chk = 1;
+	}else{
+		$video_chk = 0;
+	}
+
+	$queryWhere    = array();
+	$queryWhere[]  =' WHERE 1';
+ 
+	if($image_chk){
+		$queryWhere[] = "  gallery.image<>''";
+	}
+	if($video_chk){
+		$queryWhere[] = "  gallery.video<>''";
+	}
+	$filterArray['WHERE'] = $queryWhere;
+    $per_page = 10;
+	$offset = ($this->input->get('page')) ? ( ( $this->input->get('page') - 1 ) * $per_page ) : 0;
+	$data['per_page']=$per_page;
+	$data['offset']=$offset;
+	$data['result_list']  = $this->Gallery_model->getGalleryList($filterArray,$per_page, $offset);
+	$total_rows = $this->Gallery_model->get_last_calculated_total();
+	$data['pg']=ceil($total_rows/$per_page);
+	$data['total_rows']=$total_rows;
+    $data["links"] = my_pagination($total_rows,$per_page,"admin/gallery/");
+
+
+
+	$data['page'] = $this->input->post_get('page');
+	$data['layout_type'] =  $this->input->post_get('layout_type')?  $this->input->post_get('layout_type') : 'admin';
+	loadLayout('admin/gallery/view_list', $data, $data['layout_type']); 
+	
+}
+
+public function add_gallery(){
+    // check user permission
+	if(!has_admin_permission_layout('ADD_PHOTO_GALLERY')) { return; }
+	$data['layout_type'] =  $this->input->post_get('layout_type')?  $this->input->post_get('layout_type') : 'admin';
+	
+	 
+	
+	$data['page_title'] = 'Add Banner';
+	if (has_admin_permission('VIDEO_GALLERY')){ 
+		//$data['page_title'] .= " / Video";
+	}
+  
+	 
+    loadLayout('admin/gallery/add_gallery', $data, $data['layout_type']);   	
+ 
+}
+
+
+
+private function validate() {
+
+        $this->form_validation->set_rules('title', 'Title', 'trim|required');
+		 
+		if(isset( $_FILES['image']['name'])){
+			$image_field = $_FILES['image']['name'];
+		}else{
+			$image_field ='';
+		}
+		if(isset( $_FILES['video']['name'])){
+			$video_field = $_FILES['video']['name'];
+		}else{
+			$video_field ='';
+		}
+		
+
+		if($image_field=='' && $video_field=='' && $this->input->post('act')!='/'){
+			 $this->form_validation->set_rules('image', 'Image', 'required');
+			 $this->form_validation->set_rules('video', 'Video', 'required');
+		}
+		
+     
+         $publish=''; $approve='';
+        if ($this->form_validation->run() == TRUE) {
+
+          $checkval=$this->input->post('check');
+	        if($checkval)
+	        {
+	        	$chk=$checkval;
+	        }
+	        else
+	        {
+	        	$chk=0;
+	        }
+        if(has_admin_permission('PUBLISH_PHOTO_GALLERY')) {
+          $publish = $this->input->post('publish');
+          if($publish){
+            $publish =1;
+          }else{
+            $publish =0;
+          }
+        }
+        if(has_admin_permission('STATE_APPROVE_PHOTO_GALLERY')) {
+          $approve = $this->input->post('approve');
+          if($approve){
+            $approve =1;
+          }else{
+            $approve =0;
+          }
+        }
+
+ 
+
+
+        
+            $requestdata = array(
+                "title" 			=> $this->input->post('title'),
+                "description" 		=>   $this->input->post('description'),
+				"status" 			=> $chk,
+                "publish"      => $publish,
+                "approve"      => $approve,
+            );
+			
+
+            if ($_FILES['image']['name'] != '') {
+                if (!is_dir('download/gallery/')) {
+                    mkdir('./download/gallery/', 0777, TRUE);
+                }
+                $config['upload_path'] = './download/gallery/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg|GIF|JPG|PNG|JPEG';
+                $config['max_size'] = '5120';
+                $config['max_width'] = '0';
+                $config['max_height'] = '0';
+                $config['remove_spaces'] = true;
+                $config['encrypt_name'] = TRUE;
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload('image')) {
+                    
+                    $error_msg = $this->upload->display_errors();
+                    $this->session->set_flashdata('image', 'File upload error.');
+                    $this->session->set_flashdata('error', $error_msg);
+                    return false;
+                } else {
+                    if ($this->input->post('id') != '') {
+                        $this->common->delete("gallery", $this->input->post('id'), "image");
+                    }
+                    $upload_ques = $this->upload->data();
+					           $this->resizeSmallImage($upload_ques['file_name']);
+                    $requestdata['image'] = $upload_ques['file_name'];
+                }
+            }
+
+            if ($_FILES['video']['name'] != '') {
+				
+                if (!is_dir('download/gallery/')) {
+                    mkdir('./download/gallery/', 0777, TRUE);
+                }
+                $config['upload_path'] = './download/gallery/';
+                $config['allowed_types'] = 'avi|flv|wmv|mp4|ogv|ogg';
+                $config['max_size'] = '20480';
+                $config['remove_spaces'] = true;
+                $config['encrypt_name'] = TRUE;
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload('video')) {
+                    
+                    $error_msg = $this->upload->display_errors();
+                    $this->session->set_flashdata('video', 'File upload error.');
+                    $this->session->set_flashdata('error', $error_msg);
+                    return false;
+                } else {
+                    if ($this->input->post('id') != '') {
+                        $this->common->delete("gallery", $this->input->post('id'), "video");
+                    }
+                    $upload_ques = $this->upload->data();
+					          
+                    $requestdata['video'] = $upload_ques['file_name'];
+                }
+            }
+           // print_r($requestdata);die;
+            return $requestdata;
+        } else {
+            $error_msg = validation_errors();
+            $this->session->set_flashdata('title', "Title Required.");
+            $this->session->set_flashdata('error', $error_msg);
+            return false;
+        }
+    }
+
+
+public function GalleryInsert() {
+
+	   if(!has_admin_permission_layout('ADD_PHOTO_GALLERY')) { return; }
+	   
+		if(isset($_POST) && count($_POST) > 0) {
+			$data['row'] =  $this->input->post(NULL); // get all post data		
+	    }
+	    
+        $requestdata = $this->validate();
+		
+		//echo $requestdata;
+		
+		//print_r($requestdata); die;
+		
+        $data['page_title'] = 'Add Banner';
+
+        if (has_admin_permission('VIDEO_GALLERY')){ 
+			$data['page_title'] .= " / Video";
+		}
+  
+		
+        if (!empty($requestdata)) {
+            if ($this->Gallery_model->insertdata("gallery", $requestdata)) {
+                //echo " a";
+                $message=array("1",);
+				$this->session->set_flashdata('success', "Bannerf Successfully Uploaded");
+            } else {
+				 $this->session->set_flashdata('error', $this->db->_error_message());				 
+            }
+        }
+		
+		$data['layout_type'] =  $this->input->post_get('layout_type')?  $this->input->post_get('layout_type') : 'admin';
+		
+		$urlParmas = '?';
+		
+		
+		if($this->input->post_get('layout_type')){			
+			$urlParmas .= '&layout_type='. $this->input->post_get('layout_type');
+	 }
+		if(!$requestdata) {	
+			loadLayout('admin/gallery/add_gallery', $data, $data['layout_type']);   
+		}else {
+			if(previousPageURL()) {
+			  redirect(previousPageURL());
+			}
+			redirect(base_url("gallery").$urlParmas);
+		}
+		
+    }
+
+private function getGallery() {
+
+   	$queryWhere[] = "id = ". intval($this->input->post_get('id'));
+		 
+		
+       return $this->Gallery_model->getGalleryItem($queryWhere);
+		
+}
+ public function editGallery() {
+ 
+	    /// check user permission
+		if(!has_admin_permission_layout('EDIT_PHOTO_GALLERY')) { return; }
+
+
+        $data['page_title'] = 'Update Banner';
+	 
+  
+        $data['row']  = $this->getGallery(); 
+
+		
+		if(!$data['row']) {
+		  $this->session->set_flashdata('error', "Record not found");
+		  redirect(base_url('gallery'));
+		}
+       
+		$data['page'] = $this->input->post_get('page');
+		$data['layout_type'] =  $this->input->post_get('layout_type')?  $this->input->post_get('layout_type') : 'admin';
+	   loadLayout('admin/gallery/add_gallery', $data, $data['layout_type']); 
+    }
+
+    // Update Gallery
+    public function GalleryUpdate() {
+        $requestdata = $this->validate();
+		
+		$data['page_title'] = 'Update Banner';
+		
+		if (has_admin_permission('VIDEO_GALLERY')){ 
+			//$data['page_title'] .= " / Video";
+		}
+  
+					 
+        if ($requestdata) {
+		
+            if ($this->Gallery_model->updatedata("gallery", $requestdata, array("id" => $this->input->post('id')))) {
+                $this->session->set_flashdata('success', "Record Update Successfully");
+            } else {                
+				$this->session->set_flashdata('error', "Record Update Successfully");
+            }
+        }
+		
+		$data['layout_type'] =  $this->input->post_get('layout_type')?  $this->input->post_get('layout_type') : 'admin';
+		
+		$urlParmas = '?';
+		
+		
+		if($this->input->post_get('layout_type')){
+			$urlParmas .= '&layout_type='. $this->input->post_get('layout_type');
+			 
+
+					
+		}		
+		
+		if($this->input->post_get('page')){
+				$urlParmas .= '&page=' . $this->input->post_get('page');
+		}
+
+
+		if(!$requestdata) {		
+		
+	    	 $data['row']  = $this->getGallery(); 
+			 
+			loadLayout('admin/gallery/add_gallery', $data, $data['layout_type']);   
+		}else {
+			if(previousPageURL()) {
+			  redirect(previousPageURL());
+			}
+			redirect(base_url("gallery").$urlParmas);
+		}
+    }
+
+    public function deleteGallery() {
+      //echo "in";die;
+	    $path = "download/gallery/";
+       if ($this->input->get('id')) {
+
+		
+    		$queryWhere = array("id" => $this->input->get('id'));
+    			
+  			
+
+          if ($this->input->get_post('id')) {
+              $raw = $this->Gallery_model->getGalleryItem($queryWhere);
+              if (file_exists(FCPATH.$path.$raw['image'])){
+                
+                $this->common->deleteImage("gallery", $this->input->get_post('id'), "image",$path);
+              }
+
+                 $this->Gallery_model->deletedata("gallery", $queryWhere);
+                 $this->session->set_flashdata('success', "Record Deleted Successfully");  
+            }else{
+              $this->session->set_flashdata('error', "Something Wrong to Update data");
+            }
+      }
+	  
+        $urlParmas =  '?action=edit&id=' . $this->input->post('id');
+		
+		if($this->input->post_get('layout_type')){
+			$urlParmas .= '&layout_type='. $this->input->post_get('layout_type');
+			 
+		}
+		 
+		if($this->input->post_get('page')){
+			$urlParmas .= '&page='. $this->input->post_get('page');
+		}
+		if(previousPageURL()) {
+			redirect(previousPageURL());
+		}
+        redirect(base_url("gallery").$urlParmas);
+    }
+
+
+ public function resizeSmallImage($filename){
+		
+     $config['image_library'] = 'gd2';
+	 if (!is_dir('download/small_thumbnail/')) {
+        mkdir('./download/small_thumbnail/', 0777, TRUE);
+      }
+      $source_path 		= './download/gallery/' . $filename;    
+      $small_file_path  = './download/small_thumbnail/'; 
+      $this->load->library('image_lib', $config);
+
+      $config_img = array(
+          'image_library'  => 'gd2',
+          'source_image'   => $source_path,
+          'new_image' 	   => $small_file_path,
+          'maintain_ratio' => TRUE,
+          'create_thumb'   => TRUE,
+          'thumb_marker'   => '',
+          'width' 		   => 250,
+          'height'         => 250
+      );
+		//showData($config_img);die;
+      $this->image_lib->initialize($config_img);
+      
+      if (!$this->image_lib->resize()) {
+          echo $this->image_lib->display_errors();
+      }
+      $this->image_lib->clear();
+   }
+
+
+}

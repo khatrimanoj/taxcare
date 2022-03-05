@@ -1,0 +1,31 @@
+   .widthauto
+   {
+       width:auto !important;
+   }  
+   .table-bordered1>tbody>tr>td, .table-bordered1>tbody>tr>th, .table-bordered1>tfoot>tr>td, .table-bordered1>tfoot>tr>th, .table-bordered1>thead>tr>td, .table-bordered1>thead>tr>th {
+    border: 1px solid #000 !important;}
+   .table-bordered1{  solid :#000}
+   .xscrole{overflow-x: scroll}
+   .Data_Entered{background: #ffda65}
+   .Data_Verified, .Training{background: #f8cbac}
+   .HWCsProgressive{background: #c5e0b2}
+   .HWCsOperational{background: #bcd6ee}
+   .Human_Resource{background: #ffc000}
+   .Training{background: #f8cbac}
+   .Community_Outreach{background: #c5e0b2}
+   .Hypertension{background: #bcd6ee}
+   .Diabetes{background: #ffc000}
+   .Oral_Cancer{background: #f8cbac}
+   .Breast_Cancer{background: #c5e0b2}
+   .Cervical_Cancer{background: #bcd6ee}
+   .Medicines{background: #ffc000}
+   .Diagnostics{background: #f8cbac}
+   .Internet_Connectivity{background: #c5e0b2}
+   .Infrastructure_Branding{background: #bcd6ee}
+   .Yoga_wellness{background: #ffc000}
+   .Non_High_Focus, .North_East, .High_Focus, .Union_Territories{background:#ccc;}
+   .candidates{    border-bottom: 1px solid #ccc;
+    padding-bottom: 7px;
+    font-size: 14px;
+   }
+   
