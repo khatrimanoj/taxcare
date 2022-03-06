@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
+	'hostname' => 'demo-gst-do-user-10526077-0.b.db.ondigitalocean.com',
+	'username' => 'doadmin',
+	'password' => '0Ws6c3itf7UYMzUm',
 	'database' => 'demo_gst',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
